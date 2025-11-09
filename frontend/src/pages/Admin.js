@@ -5,6 +5,7 @@ import './Admin.css';
 const Admin = () => {
   const [accessGranted, setAccessGranted] = useState(false);
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     size: 'petit',
@@ -13,7 +14,6 @@ const Admin = () => {
   });
   const [rules, setRules] = useState([]);
 
-  // 🔐 Connexion avec mot de passe
   const handleLogin = async () => {
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/admin/login`, { password });
@@ -28,7 +28,6 @@ const Admin = () => {
     }
   };
 
-  // 📦 Récupération des règles
   const fetchRules = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/objects`);
@@ -38,7 +37,6 @@ const Admin = () => {
     }
   };
 
-  // 📝 Enregistrement d'une nouvelle règle
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -55,7 +53,6 @@ const Admin = () => {
     }
   };
 
-  // 🗑️ Suppression d'une règle
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/api/objects/${id}`);
@@ -65,23 +62,26 @@ const Admin = () => {
     }
   };
 
-  // 🔓 Interface de connexion
   if (!accessGranted) {
     return (
       <div className="container">
         <h2>🔐 Accès Admin</h2>
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="password-wrapper">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? '🙈' : '👁️'}
+          </span>
+        </div>
         <button onClick={handleLogin}>Se connecter</button>
       </div>
     );
   }
 
-  // ✅ Interface admin après connexion
   return (
     <div className="container">
       <h2>📋 Ajouter une règle de prix</h2>
