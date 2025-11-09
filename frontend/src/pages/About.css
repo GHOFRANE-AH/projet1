@@ -1,0 +1,29 @@
+.about-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff0f5;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about-container h2 {
+  color: #d63384;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-container p {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
+.about-container .copyright {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.95em;
+  color: #666;
+}
