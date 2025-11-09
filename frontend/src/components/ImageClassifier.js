@@ -16,8 +16,6 @@ const ImageClassifier = () => {
   const [etat, setEtat] = useState('');
   const imageRef = useRef();
   const fileInputRef = useRef();
-  const videoRef = useRef();
-  const [useCamera, setUseCamera] = useState(false);
   const [imageVisible, setImageVisible] = useState(false);
 
   const traduireObjet = (nom) => {
@@ -48,27 +46,6 @@ const ImageClassifier = () => {
     imageRef.current.src = imageURL;
     setImageVisible(true);
     setEstimatedPrice(null);
-    setUseCamera(false);
-  };
-
-  const startCamera = async () => {
-    setUseCamera(true);
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    videoRef.current.srcObject = stream;
-  };
-
-  const captureFromCamera = () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(videoRef.current, 0, 0);
-    const dataURL = canvas.toDataURL();
-    imageRef.current.src = dataURL;
-    setImageVisible(true);
-    setEstimatedPrice(null);
-    setUseCamera(false);
-    videoRef.current.srcObject.getTracks().forEach(track => track.stop());
   };
 
   const estimerPrix = async () => {
@@ -78,24 +55,28 @@ const ImageClassifier = () => {
     }
 
     setLoading(true);
-    const model = await mobilenet.load();
-    const predictions = await model.classify(imageRef.current);
-    const objet = traduireObjet(predictions[0].className);
-    setObjetReconnu(objet);
+    try {
+      const model = await mobilenet.load();
+      const predictions = await model.classify(imageRef.current);
+      const objet = traduireObjet(predictions[0].className);
+      setObjetReconnu(objet);
 
-    const nomFinal = correctionManuelle.trim() || objet;
+      const nomFinal = correctionManuelle.trim() || objet;
 
-    fetch(`http://localhost:5000/api/objects/estimate?name=${encodeURIComponent(nomFinal)}&size=${encodeURIComponent(taille)}&condition=${encodeURIComponent(etat)}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.price) {
-          setEstimatedPrice(data.price);
-        } else {
-          setEstimatedPrice('Non disponible');
-        }
-      })
-      .catch(() => setEstimatedPrice('Erreur de connexion'))
-      .finally(() => setLoading(false));
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/objects/estimate?name=${encodeURIComponent(nomFinal)}&size=${encodeURIComponent(taille)}&condition=${encodeURIComponent(etat)}`);
+      const data = await response.json();
+
+      if (data.price) {
+        setEstimatedPrice(data.price);
+      } else {
+        setEstimatedPrice('Non disponible');
+      }
+    } catch (error) {
+      console.error('Erreur de connexion :', error);
+      setEstimatedPrice('Erreur de connexion');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -111,15 +92,15 @@ const ImageClassifier = () => {
         style={{ display: 'none' }}
       />
 
-      <button onClick={startCamera}>📸 Prendre une photo</button>
-
-      {useCamera && (
-        <div>
-          <video ref={videoRef} autoPlay width="300" />
-          <br />
-          <button onClick={captureFromCamera}>📷 Capturer</button>
-        </div>
-      )}
+      <label htmlFor="cameraInput" className="camera-button">📸 Prendre une photo</label>
+      <input
+        type="file"
+        accept="image/*"
+        capture="environment"
+        id="cameraInput"
+        style={{ display: 'none' }}
+        onChange={handleImageUpload}
+      />
 
       <br />
       <img ref={imageRef} alt="Aperçu" width="300" />
