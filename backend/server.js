@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 // ✅ CORS configuré pour autoriser ton frontend Vercel
 app.use(cors({
-  origin: 'https://magical-sorbet-09a98b.netlify.app/', // 
+  origin: 'https://magical-sorbet-09a98b.netlify.app', // 
   credentials: true
 }));
 // ✅ Middleware pour lire les données JSON
