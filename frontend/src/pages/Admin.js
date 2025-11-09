@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Admin.css';
 
@@ -16,22 +16,22 @@ const Admin = () => {
   // 🔐 Connexion avec mot de passe
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/login', { password });
-      localStorage.setItem('adminToken', res.data.token);
-      setAccessGranted(true);
-      fetchRules();
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/admin/login`, { password });
+      if (res.data.success) {
+        setAccessGranted(true);
+        fetchRules();
+      } else {
+        alert('Mot de passe incorrect');
+      }
     } catch (err) {
-      alert('Mot de passe incorrect');
+      alert('Erreur de connexion');
     }
   };
 
   // 📦 Récupération des règles
   const fetchRules = async () => {
     try {
-      const token = localStorage.getItem('adminToken');
-      const res = await axios.get('http://localhost:5000/api/objects', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/objects`);
       setRules(res.data);
     } catch (err) {
       console.error('Erreur réseau :', err.message);
@@ -42,10 +42,7 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('adminToken');
-      await axios.post('http://localhost:5000/api/objects', formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/objects`, formData);
       setFormData({
         name: '',
         size: 'petit',
@@ -61,10 +58,7 @@ const Admin = () => {
   // 🗑️ Suppression d'une règle
   const handleDelete = async (id) => {
     try {
-      const token = localStorage.getItem('adminToken');
-      await axios.delete(`http://localhost:5000/api/objects/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/objects/${id}`);
       fetchRules();
     } catch (err) {
       alert('Erreur lors de la suppression');

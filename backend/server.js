@@ -6,16 +6,21 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middlewares
-app.use(cors());
+// ✅ CORS configuré pour autoriser ton frontend Vercel
+app.use(cors({
+  origin: 'https://projet1-j1lg.vercel.app', // Remplace par ton vrai domaine Vercel si différent
+  credentials: true
+}));
+
+// ✅ Middleware pour lire les données JSON
 app.use(express.json());
 
-// Connexion MongoDB
+// ✅ Connexion MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ Connexion MongoDB réussie'))
   .catch(err => console.error('❌ Erreur MongoDB :', err.message));
 
-// 🔐 Authentification simple
+// 🔐 Route d'authentification simple
 app.post('/admin/login', (req, res) => {
   const { password } = req.body;
   if (password === process.env.ADMIN_PASSWORD) {
@@ -29,7 +34,7 @@ app.post('/admin/login', (req, res) => {
 const objectRoutes = require('./routes/objects');
 app.use('/api/objects', objectRoutes);
 
-// Lancement du serveur
+// ✅ Lancement du serveur
 app.listen(PORT, () => {
   console.log(`🚀 Backend lancé sur http://localhost:${PORT}`);
 });
