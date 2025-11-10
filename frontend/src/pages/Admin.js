@@ -13,6 +13,7 @@ const Admin = () => {
     price: '',
   });
   const [rules, setRules] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -40,7 +41,13 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/objects`, formData);
+      if (editingId) {
+        await axios.put(`${process.env.REACT_APP_API_URL}/api/objects/${editingId}`, formData);
+        setEditingId(null);
+      } else {
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/objects`, formData);
+      }
+
       setFormData({
         name: '',
         size: 'petit',
@@ -60,6 +67,26 @@ const Admin = () => {
     } catch (err) {
       alert('Erreur lors de la suppression');
     }
+  };
+
+  const handleEdit = (rule) => {
+    setFormData({
+      name: rule.name,
+      size: rule.size,
+      condition: rule.condition,
+      price: rule.price,
+    });
+    setEditingId(rule._id);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setFormData({
+      name: '',
+      size: 'petit',
+      condition: 'bon état',
+      price: '',
+    });
   };
 
   if (!accessGranted) {
@@ -84,7 +111,7 @@ const Admin = () => {
 
   return (
     <div className="container">
-      <h2>📋 Ajouter une règle de prix</h2>
+      <h2>{editingId ? '✏️ Modifier une règle' : '📋 Ajouter une règle de prix'}</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -120,7 +147,8 @@ const Admin = () => {
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           required
         />
-        <button type="submit">Enregistrer</button>
+        <button type="submit">{editingId ? 'Mettre à jour' : 'Enregistrer'}</button>
+        {editingId && <button type="button" onClick={handleCancelEdit}>Annuler</button>}
       </form>
 
       <h3>📦 Règles enregistrées</h3>
@@ -128,6 +156,7 @@ const Admin = () => {
         {rules.map((rule) => (
           <li key={rule._id}>
             <strong>{rule.name}</strong> — {rule.size}, {rule.condition}, {rule.price} €
+            <button onClick={() => handleEdit(rule)}>✏️ Modifier</button>
             <button onClick={() => handleDelete(rule._id)}>🗑️ Supprimer</button>
           </li>
         ))}

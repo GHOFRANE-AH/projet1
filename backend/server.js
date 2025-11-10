@@ -23,6 +23,8 @@ app.use(cors({
 // ✅ Middleware pour lire les données JSON
 app.use(express.json());
 
+
+
 // ✅ Connexion MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ Connexion MongoDB réussie'))
