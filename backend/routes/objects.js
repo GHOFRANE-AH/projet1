@@ -25,13 +25,18 @@ router.post('/', async (req, res) => {
 });
 
 
+// ✅ PUT pour modifier une règle
 router.put('/:id', async (req, res) => {
   try {
     const updated = await ObjectModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updated) {
+      return res.status(404).json({ error: 'Objet non trouvé' });
+    }
     res.json(updated);
   } catch (err) {
     res.status(500).json({ error: 'Erreur lors de la modification' });
   }
+});
 // DELETE une règle
 router.delete('/:id', async (req, res) => {
   try {
