@@ -24,6 +24,14 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+router.put('/:id', async (req, res) => {
+  try {
+    const updated = await ObjectModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur lors de la modification' });
+  }
 // DELETE une règle
 router.delete('/:id', async (req, res) => {
   try {
