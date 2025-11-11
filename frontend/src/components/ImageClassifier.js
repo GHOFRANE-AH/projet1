@@ -28,12 +28,13 @@ const ImageClassifier = () => {
       'espresso maker': 'cafetière italienne', 'teapot': 'théière',
       'frying pan': 'poêle', 'skillet': 'poêle', 'pan': 'poêle',
       'spoon': 'cuillère', 'fork': 'fourchette', 'knife': 'couteau',
-      'bottle': 'bouteille',
+      'scabbard': 'fourreau', 'bottle': 'bouteille', 'candle': 'bougie',
 
       // Meubles
       'chair': 'chaise', 'folding chair': 'chaise', 'pedestal': 'chaise',
       'table': 'table', 'armoire': 'armoire', 'cabinet': 'armoire',
       'dresser': 'commode', 'shelf': 'étagère', 'bookcase': 'bibliothèque',
+      'studio couch': 'fauteuil-lit', 'wardrobe': 'meuble',
 
       // Électroménager
       'iron': 'fer à repasser', 'vacuum': 'aspirateur',
@@ -48,8 +49,9 @@ const ImageClassifier = () => {
       'watch': 'montre', 'digital watch': 'montre',
       'glasses': 'lunettes', 'hat': 'chapeau', 'umbrella': 'parapluie',
       'ring': 'bague', 'bracelet': 'bracelet', 'clock': 'horloge',
+      'wall clock': 'horloge murale', 'hourglass': 'sablier',
       'alarm clock': 'réveil', 'lamp': 'lampe', 'mirror': 'miroir',
-      'picture frame': 'cadre',
+      'picture frame': 'cadre', 'spotlight': 'lampe projecteur',
 
       // Bagagerie
       'backpack': 'sac à dos', 'handbag': 'sac à main',
@@ -57,6 +59,10 @@ const ImageClassifier = () => {
 
       // Enfants
       'stroller': 'poussette', 'toy': 'jouet', 'teddy bear': 'peluche',
+
+      // Maison
+      'rug': 'tapis', 'blanket': 'couverture', 'pillow': 'oreiller',
+      'basket': 'panier',
 
       // Autres
       'book': 'livre', 'shoe': 'chaussure', 'bolotti': 'assiette',
