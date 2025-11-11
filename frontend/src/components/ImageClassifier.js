@@ -21,20 +21,45 @@ const ImageClassifier = () => {
   const traduireObjet = (nom) => {
     const premierMot = nom.split(',')[0].trim().toLowerCase();
     const dictionnaire = {
+      // Cuisine
       'cup': 'tasse', 'coffee mug': 'tasse', 'mug': 'mug',
-      'chair': 'chaise', 'folding chair': 'chaise', 'pedestal': 'chaise',
       'bowl': 'bol', 'plate': 'assiette', 'dutch oven': 'cocotte',
       'coffeepot': 'cafetière', 'coffee maker': 'cafetière électrique',
       'espresso maker': 'cafetière italienne', 'teapot': 'théière',
-      'iron': 'fer à repasser', 'vacuum': 'aspirateur', 'book': 'livre',
+      'frying pan': 'poêle', 'skillet': 'poêle', 'pan': 'poêle',
       'spoon': 'cuillère', 'fork': 'fourchette', 'knife': 'couteau',
-      'bottle': 'bouteille', 'table': 'table', 'laptop': 'ordinateur',
-      'remote': 'télécommande', 'monitor': 'écran', 'keyboard': 'clavier',
-      'mouse': 'souris', 'shoe': 'chaussure', 'backpack': 'sac à dos',
-      'handbag': 'sac à main', 'watch': 'montre', 'digital watch': 'montre',
+      'bottle': 'bouteille',
+
+      // Meubles
+      'chair': 'chaise', 'folding chair': 'chaise', 'pedestal': 'chaise',
+      'table': 'table', 'armoire': 'armoire', 'cabinet': 'armoire',
+      'dresser': 'commode', 'shelf': 'étagère', 'bookcase': 'bibliothèque',
+
+      // Électroménager
+      'iron': 'fer à repasser', 'vacuum': 'aspirateur',
+      'washing machine': 'machine à laver', 'dryer': 'sèche-linge',
+      'fan': 'ventilateur', 'radiator': 'radiateur',
+
+      // Électronique
+      'laptop': 'ordinateur', 'monitor': 'écran', 'keyboard': 'clavier',
+      'mouse': 'souris', 'remote': 'télécommande',
+
+      // Objets divers
+      'watch': 'montre', 'digital watch': 'montre',
       'glasses': 'lunettes', 'hat': 'chapeau', 'umbrella': 'parapluie',
-      'ring': 'bague', 'bracelet': 'bracelet', 'frying pan': 'poêle',
-      'skillet': 'poêle', 'pan': 'poêle', 'bolotti': 'assiette',
+      'ring': 'bague', 'bracelet': 'bracelet', 'clock': 'horloge',
+      'alarm clock': 'réveil', 'lamp': 'lampe', 'mirror': 'miroir',
+      'picture frame': 'cadre',
+
+      // Bagagerie
+      'backpack': 'sac à dos', 'handbag': 'sac à main',
+      'suitcase': 'valise', 'duffel bag': 'sac de sport',
+
+      // Enfants
+      'stroller': 'poussette', 'toy': 'jouet', 'teddy bear': 'peluche',
+
+      // Autres
+      'book': 'livre', 'shoe': 'chaussure', 'bolotti': 'assiette',
     };
     return dictionnaire[premierMot] || premierMot;
   };
