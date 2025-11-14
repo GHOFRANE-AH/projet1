@@ -29,7 +29,29 @@ const ImageClassifier = () => {
       'frying pan': 'poêle', 'skillet': 'poêle', 'pan': 'poêle',
       'spoon': 'cuillère', 'fork': 'fourchette', 'knife': 'couteau',
       'bottle': 'bouteille',
+// Électronique
+'laptop': 'ordinateur',
+'notebook': 'ordinateur',
+'desktop computer': 'ordinateur',
+'pc': 'ordinateur',
+'personal computer': 'ordinateur',
 
+'cell phone': 'téléphone',
+'mobile phone': 'téléphone',
+'smartphone': 'téléphone',
+'iphone': 'téléphone',
+'android phone': 'téléphone',
+
+'tv': 'télévision',
+'television': 'télévision',
+'flat screen': 'télévision',
+
+'monitor': 'écran',
+'keyboard': 'clavier',
+'mouse': 'souris',
+'remote': 'télécommande',
+'tablet': 'tablette',
+'ipad': 'tablette',
       // Meubles
       'chair': 'chaise', 'folding chair': 'chaise', 'pedestal': 'chaise',
       'table': 'table', 'armoire': 'armoire', 'cabinet': 'armoire',
