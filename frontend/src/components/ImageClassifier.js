@@ -34,7 +34,10 @@ const ImageClassifier = () => {
       'laptop': 'ordinateur', 'notebook': 'ordinateur',
       'desktop computer': 'ordinateur', 'pc': 'ordinateur',
       'personal computer': 'ordinateur',
-      'monitor': 'écran', 'keyboard': 'clavier', 'mouse': 'souris',
+      'monitor': 'écran',
+      'keyboard': 'clavier', 'computer keyboard': 'clavier',
+      'pc keyboard': 'clavier', 'typing keyboard': 'clavier',
+      'mouse': 'souris', 'computer mouse': 'souris', 'pc mouse': 'souris',
       'remote': 'télécommande',
       'cell phone': 'téléphone', 'mobile phone': 'téléphone',
       'smartphone': 'téléphone', 'iphone': 'téléphone',
@@ -51,6 +54,8 @@ const ImageClassifier = () => {
       'iron': 'fer à repasser', 'vacuum': 'aspirateur',
       'washing machine': 'machine à laver', 'dryer': 'sèche-linge',
       'fan': 'ventilateur', 'radiator': 'radiateur',
+      'fridge': 'réfrigérateur', 'refrigerator': 'réfrigérateur',
+      'microwave': 'micro-ondes',
 
       // 🎁 Objets divers
       'watch': 'montre', 'digital watch': 'montre',
@@ -58,6 +63,12 @@ const ImageClassifier = () => {
       'ring': 'bague', 'bracelet': 'bracelet', 'clock': 'horloge',
       'alarm clock': 'réveil', 'lamp': 'lampe', 'mirror': 'miroir',
       'picture frame': 'cadre',
+
+      // 🚲 Transport
+      'bicycle': 'vélo', 'bike': 'vélo', 'bicycle-built-for-two': 'vélo',
+      'car': 'voiture', 'automobile': 'voiture',
+      'bus': 'bus', 'coach': 'bus',
+      'motorcycle': 'moto', 'motorbike': 'moto',
 
       // 🎒 Bagagerie
       'backpack': 'sac à dos', 'handbag': 'sac à main',
@@ -185,6 +196,7 @@ const ImageClassifier = () => {
           />
         </div>
       )}
+   
     </div>
   );
 };
