@@ -21,7 +21,7 @@ const ImageClassifier = () => {
   const traduireObjet = (nom) => {
     const premierMot = nom.split(',')[0].trim().toLowerCase();
     const dictionnaire = {
-      // Cuisine
+      // 🍽️ Cuisine
       'cup': 'tasse', 'coffee mug': 'tasse', 'mug': 'mug',
       'bowl': 'bol', 'plate': 'assiette', 'dutch oven': 'cocotte',
       'coffeepot': 'cafetière', 'coffee maker': 'cafetière électrique',
@@ -29,58 +29,44 @@ const ImageClassifier = () => {
       'frying pan': 'poêle', 'skillet': 'poêle', 'pan': 'poêle',
       'spoon': 'cuillère', 'fork': 'fourchette', 'knife': 'couteau',
       'bottle': 'bouteille',
-// Électronique
-'laptop': 'ordinateur',
-'notebook': 'ordinateur',
-'desktop computer': 'ordinateur',
-'pc': 'ordinateur',
-'personal computer': 'ordinateur',
 
-'cell phone': 'téléphone',
-'mobile phone': 'téléphone',
-'smartphone': 'téléphone',
-'iphone': 'téléphone',
-'android phone': 'téléphone',
+      // 🖥️ Électronique
+      'laptop': 'ordinateur', 'notebook': 'ordinateur',
+      'desktop computer': 'ordinateur', 'pc': 'ordinateur',
+      'personal computer': 'ordinateur',
+      'monitor': 'écran', 'keyboard': 'clavier', 'mouse': 'souris',
+      'remote': 'télécommande',
+      'cell phone': 'téléphone', 'mobile phone': 'téléphone',
+      'smartphone': 'téléphone', 'iphone': 'téléphone',
+      'android phone': 'téléphone',
+      'tv': 'télévision', 'television': 'télévision', 'flat screen': 'télévision',
+      'tablet': 'tablette', 'ipad': 'tablette',
 
-'tv': 'télévision',
-'television': 'télévision',
-'flat screen': 'télévision',
-
-'monitor': 'écran',
-'keyboard': 'clavier',
-'mouse': 'souris',
-'remote': 'télécommande',
-'tablet': 'tablette',
-'ipad': 'tablette',
-      // Meubles
+      // 🪑 Meubles
       'chair': 'chaise', 'folding chair': 'chaise', 'pedestal': 'chaise',
       'table': 'table', 'armoire': 'armoire', 'cabinet': 'armoire',
       'dresser': 'commode', 'shelf': 'étagère', 'bookcase': 'bibliothèque',
 
-      // Électroménager
+      // ⚡ Électroménager
       'iron': 'fer à repasser', 'vacuum': 'aspirateur',
       'washing machine': 'machine à laver', 'dryer': 'sèche-linge',
       'fan': 'ventilateur', 'radiator': 'radiateur',
 
-      // Électronique
-      'laptop': 'ordinateur', 'monitor': 'écran', 'keyboard': 'clavier',
-      'mouse': 'souris', 'remote': 'télécommande',
-
-      // Objets divers
+      // 🎁 Objets divers
       'watch': 'montre', 'digital watch': 'montre',
       'glasses': 'lunettes', 'hat': 'chapeau', 'umbrella': 'parapluie',
       'ring': 'bague', 'bracelet': 'bracelet', 'clock': 'horloge',
       'alarm clock': 'réveil', 'lamp': 'lampe', 'mirror': 'miroir',
       'picture frame': 'cadre',
 
-      // Bagagerie
+      // 🎒 Bagagerie
       'backpack': 'sac à dos', 'handbag': 'sac à main',
-      'suitcase': 'valise', 'duffel bag': 'sac de sport','doormat': 'tapis',
+      'suitcase': 'valise', 'duffel bag': 'sac de sport', 'doormat': 'tapis',
 
-      // Enfants
+      // 🧸 Enfants
       'stroller': 'poussette', 'toy': 'jouet', 'teddy bear': 'peluche',
 
-      // Autres
+      // 📚 Autres
       'book': 'livre', 'shoe': 'chaussure', 'bolotti': 'assiette',
     };
     return dictionnaire[premierMot] || premierMot;
@@ -110,7 +96,9 @@ const ImageClassifier = () => {
 
       const nomFinal = correctionManuelle.trim() || objet;
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/objects/estimate?name=${encodeURIComponent(nomFinal)}&size=${encodeURIComponent(taille)}&condition=${encodeURIComponent(etat)}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/objects/estimate?name=${encodeURIComponent(nomFinal)}&size=${encodeURIComponent(taille)}&condition=${encodeURIComponent(etat)}`
+      );
       const data = await response.json();
 
       if (data.price) {
